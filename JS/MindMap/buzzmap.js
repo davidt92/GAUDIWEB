@@ -103,8 +103,12 @@
       window.setTimeout(function() {
         if(click == 2)
         {
+          /*  click=0;
+            thisnode.toggleChildren();
+            return true;*/
             click=0;
             thisnode.toggleChildren();
+            thisnode.obj.animate();
             return true;
         }
         else if (click == 1)
@@ -271,6 +275,8 @@
     }).appendTo(thisnode.el);
     return false;
   };
+
+
   Node.prototype.removeNode = function ()
   {
     // execute onremove callback
@@ -360,6 +366,49 @@
       if(this.parent.parent === null || this.parent.el.hasClass('active')) {
         this.show();
       }
+
+    }
+    //if i'm not root
+    /*
+    for(var i=0; i<this.children.length; i++)
+    {
+      for(var j=0; j<this.children[i].children.length; j++)
+      {
+        if(this.children[i].children[j].visible)
+        {
+          this.children[i].children[j].show();
+        }
+        else
+        {
+          this.children[i].children[j].hide();
+          console.log(this.children[i].children[j]);
+        }
+      }
+    }*/
+    if(this.visible==true&&this.parent.parent!=null)
+    {
+      var visible=false;
+      for(var i=0; i<this.parent.children.length; i++)
+      {
+        for(var j=0; j<this.parent.children[i].children.length; j++)
+        {
+          console.log(this.el[0].innerText+" "+this.parent.children[i].children[j].visible);
+        }
+        /*if(this.parent.children[i].children.length==0)
+        {
+          visible=true;
+        }*/
+      }
+
+      if(visible==true)
+      {
+        this.show();
+      }
+      else
+      {
+        //this.hide();
+        //console.log(this.el[0].innerText);
+      }
     }
 
    /* position node */
@@ -433,6 +482,7 @@
     var showy = this.y - ($(this.el).height() / 2) - 10;
     this.el.css('left', showx + "px");
     this.el.css('top', showy + "px");
+
     return false;
   };
 
@@ -608,9 +658,9 @@
     }else{
       this.canvas.setSize(this.width, this.height);
     }
-
     // calc canvas offset
     this.offset = (this.el.css('position') == 'relative') ? {top:0, left:0} : this.el.offset();
+
   };
 
   Buzzmap.prototype.addNode = function (parent, label)

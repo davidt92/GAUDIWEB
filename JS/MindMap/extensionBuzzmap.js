@@ -1,4 +1,5 @@
 //inici fet per mi
+//https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Function/bind
 Node.prototype.setFirstColor = function(a)
 {
   if(a==true)

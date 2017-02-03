@@ -121,3 +121,24 @@ function fromSecondtoFinal(word)
     return(word.substr(word.indexOf(" ")+1, word.length));
   }
 }
+
+function arrowUp()
+{
+  timesUp++;
+  if(timesUp>CMDText.length-1)
+  {
+    timesUp=CMDText.length-1;
+  }
+  $("#CMDBox").val(CMDText[timesUp]);
+}
+
+function arrowDown()
+{
+  timesUp--;
+  if(timesUp<0)
+  {
+    timesUp=CMDText.length-1;
+  }
+  $("#CMDBox").val(CMDText[timesUp]);
+
+}

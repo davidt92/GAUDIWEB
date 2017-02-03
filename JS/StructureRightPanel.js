@@ -88,9 +88,13 @@ function createSubLayerRepresentation(self)
   $textBox=$("<input></input>").attr("type","text").addClass("textBoxSubLayer").on("keydown",function(e) {
     if(e.keyCode == 13)
     {
-        self.representation.setSelection($(this).val());
+        var text=$(this).val();
+        self.representation.setSelection(text);
+
+        self.layer.structure.residuesBS= text.split(" ");//ULL NOMES FUNCIONA AMB RESIUUS
     }
   }); /*sa de cambiar*/
+  self.textBox=$textBox;
   $($text).append($textBox);
 
   $button=$("<button></button>").addClass("addSublayerButton").html("P").click(function()

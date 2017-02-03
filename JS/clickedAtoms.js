@@ -50,6 +50,7 @@ startOnCanvasClick=function(stage)
   atomArray;
   stage.signals.clicked.add(function(clickedInfo)
   {
+    console.log(clickedInfo);
     if(shiftPressed==true)
     {
       $("#HelpBox").html(getPickingMessage(clickedInfo).toString());
@@ -77,7 +78,7 @@ startOnCanvasClick=function(stage)
       }
       else if(atomArray.length==3)
       {
-        $("#HelpBox").html("∠  "+giveAngleBetweenAtoms(atomArray));
+        $("#HelpBox").html("∠  "+giveAngleBetweenAtoms(atomArray)+"º");
       }
     }
   });
@@ -168,14 +169,11 @@ function changeVisualization(a)
   var select;
   for(var i=0; i<struct.length; i++)
   {
-    select=a[i][1].join(" ");
-    console.log(select);
-    if(select=="")
+    if(a[i][1]==[])
     {
-      select="-";
+      a[i][1].push(["-"]);
     }
-        struct[i].layers[0].subLayers[2].representation.setSelection(select);
-
+    struct[i].residuesBS=a[i][1];
   }
 }
 

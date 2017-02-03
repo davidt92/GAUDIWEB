@@ -13,7 +13,6 @@ Structure.prototype.onCreate=function()
     }
 }
 
-
 Structure.prototype.changeVisibility = function()
 {
   if($(this.visibleDiv).hasClass("checkBoxChecked"))
