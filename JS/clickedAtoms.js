@@ -157,15 +157,16 @@ function whatAtDistanceSmallerThanSelected(atom, distance)
 
 function changeVisualization(a)
 {
-  var select;
   for(var i=0; i<struct.length; i++)
   {
-    if(a[i][1]==[])
+    if(a[i][1].length==0)
     {
-      a[i][1].push(["-"]);
+      struct[i].BallStick.selection="-";
     }
-    //S'ha de cambiar
-    struct[i].BallStick.selection=a[i][1].join(" ");
+    else
+    {
+      struct[i].BallStick.selection=a[i][1].join(" ");
+    }
   }
 }
 
