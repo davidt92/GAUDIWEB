@@ -84,15 +84,6 @@ startOnCanvasClick=function(stage)
   });
 }
 
-Array.prototype.contains = function(obj) {
-  var i = this.length;
-  while (i--) {
-      if (this[i] == obj) {
-          return true;
-      }
-  }
-  return false;
-}
 
 /*
 * distance=sqrt((x-x_0)^2+(y-y_0)^2+(z-z_0)^2)
@@ -173,7 +164,8 @@ function changeVisualization(a)
     {
       a[i][1].push(["-"]);
     }
-    struct[i].residuesBS=a[i][1];
+    //S'ha de cambiar
+    struct[i].BallStick.selection=a[i][1].join(" ");
   }
 }
 

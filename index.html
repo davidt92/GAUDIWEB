@@ -6,6 +6,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="./CSS/jquery-ui.css">-->
     <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -35,7 +36,6 @@
     top: 54px;
     z-index: 2;
    }
-
   </style>
 
   </head>
@@ -114,24 +114,33 @@
     <!-- CMD -->
     <script type="text/javascript" src="./JS/CMD.js"></script>
     <script type="text/javascript" src="./JS/CMDFunctions.js"></script>
+
     <!-- Structure -->
     <script type="text/javascript" src="./JS/Structure.js"></script>
     <script type="text/javascript" src="./JS/StructureMindMap.js"></script>
     <script type="text/javascript" src="./JS/StructureRightPanel.js"></script>
-    <script type="text/javascript" src="./JS/StructurePrototype.js"></script>
+
     <!-- Menu -->
     <script type="text/javascript" src="./JS/menu.js"></script>
+
     <!--MindMap-->
     <script type="text/javascript" src="./JS/MindMap/buzzmap.js"></script>
     <script type="text/javascript" src="./JS/MindMap/extensionBuzzmap.js"></script>
     <script type="text/javascript" src="./JS/MindMap/mindMap.js"></script>
     <script type="text/javascript" src="./JS/MindMap/raphael.min.js"></script>
+
     <!-- Clicked on atoms -->
     <script type="text/javascript" src="./JS/clickedAtoms.js"></script>
+
     <!-- Setters and Getters -->
     <script type="text/javascript" src="./JS/setterGetter.js"></script>
+
     <!-- popUp's -->
     <script type="text/javascript" src="./JS/popUp.js"></script>
+    <!-- Prototypes -->
+    <script type="text/javascript" src="./JS/StructurePrototype.js"></script>
+    <script type="text/javascript" src="./JS/ArrayPrototype.js"></script>
+
     <!-- CREATE CANVAS -->
     <script>
       $(document).ready(function()
@@ -145,6 +154,12 @@
 
       $("#mindMap").mouseout(function(){
           $("#container").hide();
+      });
+
+      $(document).ready(function(){
+        //$(".ui-state-active:hover").css({"background":""});
+          //$(".ui-state-active").css({"background":""});
+          $('.ui-state-active').css("background","green");
       });
       //Automatic resize canvas
       window.addEventListener("resize",function(){stage.handleResize()});

@@ -1,16 +1,34 @@
 //getter setter of _residuesBallStickSelection residuesBS
 function Structure(struct)
 {
+  this._visibility=true;
+
   this.struct=struct; // a vegades no funciona el altre
   var self=this;
   self.name=struct.name;
   self.layers=[];
-  self.aminoAcids=[];
+  self.residuesType=[];
   self.layersParentDiv;
-  self._residuesBallStickSelection=[];
+  this.BallStick;
   self.onCreate();
   self.onCreateSetterGetter();
   self.onCreateMindMap();
+}
+
+function removeStructure(self)
+{
+  //remove the structure, the layers and all the sublayers from the right panel
+  $(self.layersParentDiv).remove();
+  //remove all representations inside the structure form stage
+  self.removeStructure();
+  //remove structure from struct array
+  for(var i=0; i<struct.length; i++)
+  {
+    if(struct[i]==self)
+    {
+      struct.splice(i,1);
+    }
+  }
 }
 
 function layerObject(self, layerName)
@@ -20,34 +38,10 @@ function layerObject(self, layerName)
   this.subLayersParentDiv;
   this.subLayers=[];
   this.visibleDiv;
-  this.visible;
   this.layerDiv=createLayerRepresentation(this);
-  this.changeVisibility = function(){
-    if($(this.visibleDiv).hasClass("checkBoxChecked"))
-    {
-      $(this.visibleDiv).removeClass("checkBoxChecked");
-      this.visible=false;
-      for(var i=0; i<this.subLayers.length; i++)
-      {
-          this.subLayers[i].couldBeVisible=false;
-          this.subLayers[i].representation.setVisibility(false);
-      }
-    }
-    else
-    {
-      $(this.visibleDiv).addClass("checkBoxChecked");
-      this.visible=true;
+  setterGetterLayer(this);
 
-      for(var i=0; i<this.subLayers.length; i++)
-      {
-          this.subLayers[i].couldBeVisible=true;
-          if($(this.subLayers[i].visibleDiv).hasClass("checkBoxChecked"))
-          {
-            this.subLayers[i].representation.setVisibility(true);
-          }
-      }
-    }
-  }
+  this._visibility=true;
 
   this.createSubLayer= function(repr)
   {
@@ -60,73 +54,6 @@ function layerObject(self, layerName)
       this.subLayers.push(new subLayerObject(this, repr));
     }
 
-  }
-}
-
-function subLayerObject(self, repr)
-{
-  this.representation=repr;
-  this.layer=self;
-  this.subLayerName=repr.name;
-  this.visibleDiv;
-  this.couldBeVisible=true;
-  this.subLayerDiv=createSubLayerRepresentation(this);
-  this.textBox;
-  this.remove= function(){removeRepresentation(this)}; //No s'executa el primer cop
-  this._visible=true;
-  this.changeVisibility = function(){
-    if($(this.visibleDiv).hasClass("checkBoxChecked"))
-    {
-      $(this.visibleDiv).removeClass("checkBoxChecked");
-      this.representation.setVisibility(false);
-    }
-    else
-    {
-      $(this.visibleDiv).addClass("checkBoxChecked");
-      if(this.couldBeVisible==true)
-      {
-          this.representation.setVisibility(true);
-      }
-    }
-  }
-/*
-  Object.defineProperties(this, {"visibility": {
-             "get": function()
-             {
-                return this._visible;
-              },
-             "set": function(visValue)
-             {
-               if(visValue==true)
-               {
-                 $(this.visibleDiv).removeClass("checkBoxChecked");
-                 this.representation.setVisibility(false);
-               }
-               else
-               {
-                 $(this.visibleDiv).addClass("checkBoxChecked");
-                 if(this.couldBeVisible==true)
-                 {
-                     this.representation.setVisibility(true);
-                 }
-               }
-              }
-        }
-    });*/
-}
-
-
-function removeRepresentation(self)
-{
-  $(self.subLayerDiv).remove();
-
-  stage.removeComponent(self.representation);//Borra imatge
-  for(var i=0; i<self.layer.subLayers.length; i++)
-  {
-    if(self.layer.subLayers[i]==self)
-    {
-      self.layer.subLayers.splice(i,1);
-    }
   }
 }
 
@@ -149,19 +76,34 @@ function removeLayer(self)
   $(self.layerDiv[0].parentNode).remove();
 }
 
-function removeStructure(self)
+function subLayerObject(self, repr)
 {
-  //remove the structure, the layers and all the sublayers from the right panel
-  console.log(self);
-  $(self.layersParentDiv).remove();
-  //remove all representations inside the structure form stage
-  self.removeStructure();
-  //remove structure from struct array
-  for(var i=0; i<struct.length; i++)
+  this.representation=repr;
+  this.layer=self;
+  this.subLayerName=repr.name;
+  this.visibleDiv;
+  this.couldBeVisible=true;
+  this.subLayerDiv=createSubLayerRepresentation(this);
+  this.textBox;
+  this.remove=function(){removeRepresentation(this)}; //No s'executa el primer cop
+
+  this._visibility=true;
+  self._residuesName=[];
+  self._residuesPosition=[];
+  self._atomsName=[];
+  setterGetterSublayer(this);
+}
+
+function removeRepresentation(self)
+{
+  $(self.subLayerDiv).remove();
+
+  stage.removeComponent(self.representation);//Borra imatge
+  for(var i=0; i<self.layer.subLayers.length; i++)
   {
-    if(struct[i]==self)
+    if(self.layer.subLayers[i]==self)
     {
-      struct.splice(i,1);
+      self.layer.subLayers.splice(i,1);
     }
   }
 }

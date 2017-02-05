@@ -1,7 +1,13 @@
 function createStructureRepresentation(self)
 {
   $checkBox=$("<div></div>").addClass("checkBox checkBoxChecked").click(function(){
-    self.changeVisibility();
+    if(self.visibility==true)
+    {
+      self.visibility=false;
+    }
+    else {
+      self.visibility=true;
+    }
   });
 
   self.visibleDiv=$checkBox;
@@ -43,7 +49,14 @@ function createStructureRepresentation(self)
 function createLayerRepresentation(self)
 {
   $checkBox=$("<div></div>").addClass("checkBox checkBoxChecked").click(function(){
-    self.changeVisibility();
+    if(self.visibility==true)
+    {
+      self.visibility=false;
+    }
+    else {
+      self.visibility=true;
+    }
+
   });
   self.visibleDiv=$checkBox;
   self.isVisible=true;
@@ -81,17 +94,20 @@ function createSubLayerRepresentation(self)
 {
   //Pop up
   $checkBox=$("<div></div>").addClass("checkBox checkBoxChecked").click(function(){
-    self.changeVisibility();
+    if(self.visibility==true)
+    {
+      self.visibility=false;
+    }
+    else {
+      self.visibility=true;
+    }
   });
   self.visibleDiv=$checkBox;
   $text=$("<div></div>").addClass("textSublayer").html(self.subLayerName);
   $textBox=$("<input></input>").attr("type","text").addClass("textBoxSubLayer").on("keydown",function(e) {
     if(e.keyCode == 13)
     {
-        var text=$(this).val();
-        self.representation.setSelection(text);
-
-        self.layer.structure.residuesBS= text.split(" ");//ULL NOMES FUNCIONA AMB RESIUUS
+      self.selection=$(this).val();
     }
   }); /*sa de cambiar*/
   self.textBox=$textBox;
