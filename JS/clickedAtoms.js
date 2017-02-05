@@ -84,7 +84,6 @@ startOnCanvasClick=function(stage)
   });
 }
 
-
 /*
 * distance=sqrt((x-x_0)^2+(y-y_0)^2+(z-z_0)^2)
 */
@@ -136,7 +135,6 @@ function whatAtDistanceSmallerThanSelected(atom, distance)
         {
           atomList.push(serial);
           resNumber=atomArray.residueIndex[pos]+1;
-          console.log("Struct"+structure+"res index"+atomArray.residueIndex[pos]+" atom "+serial)
           if(resList.contains(resNumber)==false) //residueIndex start at 0, but the first resiude will be 1
           {
             resList.push(resNumber);
