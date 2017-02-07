@@ -11,7 +11,7 @@ function createRepresentation(self)
   $($select).selectmenu().attr("title","Select a representation").dialog({
       resizable: false,
       height: "auto",
-      width: 400,
+      width: 420,
       modal: true,
       buttons: {
         Accept: function()
@@ -33,17 +33,20 @@ function changeRepresentationParameters(representation)
   var parameters=Object.keys(representation.getParameters());
   var inicialValue=null;
 
+  var labelText=null;
+
   $div=$("<div></div>");
   for(var i=0; i<parameters.length; i++)
   {
     if(parametersAtributes[parameters[i].toString()]!=undefined)
     {
       inicialValue=representation.getParameters()[parameters[i]];
-      console.log(inicialValue);
       $tag=createInputTag(parameters[i], parametersAtributes, inicialValue, representation);
+
       if($tag!=null)
       {
-        $label=$("<label></label>").attr("for",parameters[i]).addClass("inputParametersLayer").html(parameters[i]);
+        labeltext=((parameters[i]).replace(/([A-Z])/g, " $1").toLowerCase()).capitalizeFirstLetter();
+        $label=$("<label></label>").attr("for",parameters[i]).addClass("inputParametersLayer").html(labeltext);
         $($div).append($label);
         $($div).append($tag);
         $($div).append("<br> <br>");

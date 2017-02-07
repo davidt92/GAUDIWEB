@@ -54,8 +54,6 @@
     this.obj      = obj;// Buzzmap object
     this.parent   = parent;
     this.children = [];
-    this.arguments ="arg";
-    this.onClickExeFunction;
     // Vectors
     this.x = 1;
     this.y = 1;
@@ -67,12 +65,35 @@
     this.editing = false;
     this.dragging = false;
     this.hasPosition = false;// node position calculated?
+    //fet per mi
+    Object.defineProperty(thisnode, "active",{
+      set: function(val)
+      {
+        this._active=val;
+
+        if(val==true)
+        {
+          this.changeColorOfNode(true);
+        }
+        else
+        {
+          this.changeColorOfNode(false);
+        }
+      },
+      get: function()
+      {
+        return this._active;
+      }
+    });
+
+
+    this._active = true;
 
     // create the node element
     this.el = $('<div></div>');
     this.el.css('position', 'absolute');
     this.el.addClass('node');
-    this.el.addClass('orangeBorder');
+    this.el.addClass('greenBorder');
     this.obj.el.append(this.el);
     this.el.hide();
 
@@ -103,9 +124,6 @@
       window.setTimeout(function() {
         if(click == 2)
         {
-          /*  click=0;
-            thisnode.toggleChildren();
-            return true;*/
             click=0;
             thisnode.toggleChildren();
             thisnode.obj.animate();
@@ -114,8 +132,7 @@
         else if (click == 1)
         {
           click=0;
-          thisnode.changeColorOfNode();
-          thisnode.onClickExeFunction();
+          thisnode.onClick();
         }
         else {
           click=0;
@@ -177,28 +194,6 @@
     });
     return json;
   };
-
-  //create new node
-  Node.prototype.createNewNode = function(parentNode,text)  //fet per mi
-  {
-    var thisnode = parentNode; //hi hem de cambiar
-    var node = thisnode.obj.addNode(parentNode);
-    node.label('<span>'+text+'</span>');
-
-    // execute onchange callback
-    node.obj.trigger('onchange', thisnode, thisnode.obj.serialize());
-    node.editing = false;
-    node.obj.options.minSpeed = 0.2;
-    node.obj.animate();
-    return node;
-  }
-
-  changeNodeText = function(thisnode, text)  //fet per mi
-  {
-    thisnode.editing = true;
-    thisnode.label('<span>'+text+'</span>');
-    thisnode.editing = false;
-  }
 
   // edit node
   Node.prototype.edit = function ()
@@ -614,6 +609,59 @@
       y: fy
     };
   };
+
+  //inici fet per mi
+  //https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Function/bind
+  //create new node
+  Node.prototype.createNewNode = function(parentNode, text, onClickFunction, object)  //fet per mi
+  {
+    var thisnode = parentNode;
+    var node = thisnode.obj.addNode(parentNode);
+    node.label('<span>'+text+'</span>');
+
+    // execute onchange callback
+    node.obj.trigger('onchange', thisnode, thisnode.obj.serialize());
+    node.editing = false;
+    node.obj.options.minSpeed = 0.2;
+    node.obj.animate();
+    node.onClick=function(){onClickFunction(node);};
+
+    if(object!=null)
+    {
+      node.object=object;
+    }
+    return node;
+  }
+
+  Node.prototype.onClick=function(a)
+  {
+      a();
+  }
+
+  changeNodeText = function(thisnode, text)  //fet per mi
+  {
+    thisnode.editing = true;
+    thisnode.label('<span>'+text+'</span>');
+    thisnode.editing = false;
+  }
+
+  Node.prototype.changeColorOfNode = function(val)
+  {
+    if(val==false)
+    {
+      this.el.removeClass("greenBorder");
+      this.el.addClass("redBorder");
+    }
+    else if(val==true)
+    {
+      this.el.removeClass("redBorder");
+      this.el.addClass("greenBorder");
+    }
+  }
+
+
+
+
 
 
 /* MAP */

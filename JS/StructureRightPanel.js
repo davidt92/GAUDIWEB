@@ -5,7 +5,8 @@ function createStructureRepresentation(self)
     {
       self.visibility=false;
     }
-    else {
+    else
+    {
       self.visibility=true;
     }
   });
@@ -27,21 +28,19 @@ function createStructureRepresentation(self)
   $($layersParentDiv).append($StructureDiv);
   $("#panelLayer").append($layersParentDiv);
 
-  $($StructureDiv).mouseup(function()
+  $($checkBox).mouseup(function()
   {
     clearTimeout(pressTimer);
-    $(this.parentNode).removeClass("removeRepresentation").css('background-color','inherit');
+    $(self.layersParentDiv).removeClass("removeRepresentation").css('background-color','inherit');
     return false;
     }).mousedown(function(){
     // Set timeout
-    var divThis=this;
-    //For Making possible to click on textbox
+    //For Making possible to click on checkBox
     setTimeout(function(){
-    $(divThis.parentNode).addClass("removeRepresentation").css("background","red");
+    $(self.layersParentDiv).addClass("removeRepresentation").css("background","red");
     pressTimer = window.setTimeout(function() {removeStructure(self)},1000);
     return false;}, 1);
   });
-
   return $StructureDiv;
 }
 
@@ -72,17 +71,16 @@ function createLayerRepresentation(self)
   $($div).append($layerDiv);
   $(self.structure.layersParentDiv).append($div);
 
-  $($layerDiv).mouseup(function()
+  $($checkBox).mouseup(function()
   {
     clearTimeout(pressTimer);
-    $(this.parentNode).removeClass("removeRepresentation").css('background-color','inherit');
+    $(self.layerDiv[0].parentNode).removeClass("removeRepresentation").css('background-color','inherit');
     return false;
     }).mousedown(function(){
     // Set timeout
-    var divThis=this;
     //For Making possible to click on textbox
     setTimeout(function(){
-    $(divThis.parentNode).addClass("removeRepresentation").css("background","red");
+    $(self.layerDiv[0].parentNode).addClass("removeRepresentation").css("background","red");
     pressTimer = window.setTimeout(function() {removeLayer(self)},1000);
     return false;}, 1);
   });
@@ -103,7 +101,7 @@ function createSubLayerRepresentation(self)
     }
   });
   self.visibleDiv=$checkBox;
-  $text=$("<div></div>").addClass("textSublayer").html(self.subLayerName);
+  $text=$("<div></div>").addClass("textSublayer").html(self.subLayerName+"<br>");
   $textBox=$("<input></input>").attr("type","text").addClass("textBoxSubLayer").on("keydown",function(e) {
     if(e.keyCode == 13)
     {
@@ -123,17 +121,16 @@ function createSubLayerRepresentation(self)
 
   $(self.layer.subLayersParentDiv).append($subLayerDiv);
 
-  $($subLayerDiv).mouseup(function()
+  $($checkBox).mouseup(function()
   {
     clearTimeout(pressTimer);
-    $(this).removeClass("removeRepresentation").css('background-color','inherit');
+    $(self.subLayerDiv).removeClass("removeRepresentation").css('background-color','inherit');
     return false;
     }).mousedown(function(){
     // Set timeout
-    var divThis=this;
     //For Making possible to click on textbox
     setTimeout(function(){
-    $(divThis).addClass("removeRepresentation").css("background","red");
+    $(self.subLayerDiv).addClass("removeRepresentation").css("background","red");
     pressTimer = window.setTimeout(function() {removeRepresentation(self)},1000);
     return false;}, 1);
   });

@@ -74,6 +74,8 @@
             <li><div id="fullScreenMenu">Full Screen</div></li>
           </ul>
         </li>
+        <li><div id="settings">Settings</div></li>
+        <li><div>Documentation</div></li>
       </ul>
 
 
@@ -94,21 +96,7 @@
     <div class="mindMap transition" id="mindMap" >MIND MAP<div id="container"></div></div>
     <!-- For the mindmap-->
     <ul id="structure" style="display: none">
-      <li><div><span>STRUCTURE</span></div>
-        <ul>
-          <li><div><span>Resources</span></div>
-            <ul>
-              <li><div><span>TEST</span></div></li>
-              <li><div><span>TEST2</span></div></li>
-              <li><div><span>TEST3</span></div>
-                <ul>
-                  <li><div><span>TEST80</span></div></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+      <li><div><span>STRUCTURE</span></div></li>
     </ul>
 
     <!-- CMD -->
@@ -125,7 +113,6 @@
 
     <!--MindMap-->
     <script type="text/javascript" src="./JS/MindMap/buzzmap.js"></script>
-    <script type="text/javascript" src="./JS/MindMap/extensionBuzzmap.js"></script>
     <script type="text/javascript" src="./JS/MindMap/mindMap.js"></script>
     <script type="text/javascript" src="./JS/MindMap/raphael.min.js"></script>
 
@@ -139,7 +126,7 @@
     <script type="text/javascript" src="./JS/popUp.js"></script>
     <!-- Prototypes -->
     <script type="text/javascript" src="./JS/StructurePrototype.js"></script>
-    <script type="text/javascript" src="./JS/ArrayPrototype.js"></script>
+    <script type="text/javascript" src="./JS/ArrayStringPrototype.js"></script>
 
     <!-- CREATE CANVAS -->
     <script>
@@ -164,8 +151,7 @@
       //Automatic resize canvas
       window.addEventListener("resize",function(){stage.handleResize()});
       struct=[];
-
-    </script>
+      </script>
     <script type="text/javascript" src="./JS/ZIP/gaudi.js"></script>
   </body>
 </html>

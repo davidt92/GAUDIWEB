@@ -40,7 +40,10 @@ $(document).on('keyup keydown', function(e){
 //No definitiu
 $(document).on('keyup', function(e){
   atomArray=[];
-  $("#HelpBox").html(" ");
+  if(e.keyCode==16||e.keyCode==17||e.keyCode==18)
+  {
+    $("#HelpBox").html(" ");
+  }
 } );
 
 casa=null;

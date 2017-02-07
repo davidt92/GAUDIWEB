@@ -151,17 +151,21 @@ function loadAsyncfileToStage(fileObject, mol2ArrayIndex, iteration)
      $($table).append($tableLine);
      $tableLine=null;
    }
-   $div=$("<div></div>").attr("width","auto");
+
+   $div=$("<div></div>").attr("width","auto").attr("style","padding-right: 30px").attr("id","gaudiRepresentations");
    $($div).append($table);
-   $($div).dialog({height: 300,
-     resizable: true,
-      width: "auto",
-    overflow:"auto"}); //afegir boto maximitzar i minimitzar
+
+   $($div).dialog({
+    height: 300,
+    resizable: true,
+    width: "auto",
+    overflow: "hidden"}); //afegir boto maximitzar i minimitzar
  }
 
 function closeGaudi()
 {
   gaudiObject=null;
+  $("#gaudiRepresentations").dialog("close");
 }
 
 function updateRepresentation(zipFileName)

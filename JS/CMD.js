@@ -1,9 +1,9 @@
+$(document).ready(function(){
 var timesUp=0;
 var CMDText=[];
 var first, secondToFinal;
 
 $("#CMDBox").keyup(function(event){
-
   event.preventDefault();
     switch (event.keyCode) {
       case 13:
@@ -140,5 +140,5 @@ function arrowDown()
     timesUp=CMDText.length-1;
   }
   $("#CMDBox").val(CMDText[timesUp]);
-
 }
+});

@@ -100,12 +100,11 @@ function setterGetterSublayer(self)
   Object.defineProperty(self, "selection",{
   set: function(val){
 
-    self.representation.setSelection(val);
+    //self.representation.setSelection(val);
 
-    selectionFromStringToArrays(this, val);
-    //Set canvas
+    //selectionFromStringToArrays(this, val);<-OJU
 
-    $(this.textBox).val(val);
+    //$(this.textBox).val(val);
     this.representation.setSelection(val);
   },
   get: function()
@@ -120,37 +119,85 @@ function selectionFromStringToArrays(self, val)
 {
   var inputArray=val.split(" ");
   inputArray=inputArray.remove("");
-  self._residuesName=[];
-  self._residuesPosition=[];
-  self._atomsName=[];
+  //set all visibility to null/false
+  self._activeResiduesPosition=[];
+  self._atomsPosition=[];
+  for(var i=0; i<self.residuesType.length; i++)
+  {
+    self.residuesType[i].visible=false;
+    for(var j=0; j<self.residuesType[i].residue.length; j++)
+    {
+      self.residuesType[i].residue[j].visible=false
+    }
+  }
 
   for(var i=0; i< inputArray.length; i++)
   {
     if(/^[a-zA-Z]+$/.test(inputArray[i])==true&&inputArray[i].length==3)
     {
-      self._residuesName.push(inputArray[i]);
+      self._activeResiduesPosition.push(findResPositionGivenResNameAndChangeVisibility(inputArray[i], self));
     }
     else if(isNaN(inputArray[i])==false) //If it's a number
     {
-      self._residuesPosition.push(inputArray[i])
+      self._activeResiduesPosition.push(inputArray[i]);
+      changeVisibilityGivenResPosition(inputArray[i], self)
     }
+
+    //De moment els atoms els deixem aparcats
+    /*
     else if(inputArray[i].indexOf("#")==0)
     {
-      self._atomsName.push(inputArray[i]);
+      //self._atomsName.push(inputArray[i]);
     }
+    else if(inputArray[i].indexOf("@")==0)
+    {
+      var atomsArray=inputArray[i].substring(1);
+      atomsArray=atomsArray.split(",");
+      self._activeAtomsPosition=self._activeAtomsPosition.concat(atomsArray);
+    }*/
   }
-  console.log("resiudesName "+self._residuesName+" residuesPosition "+self._residuesPosition+" atomsName "+self._atomsName);
+  console.log("resiudesPosition "+self._activeResiduesPosition);
 }
-/*
-function fromResiduesNameToResiduesPosition(self, residueName)
-{
-  var residueStore= residueName.representation.parent.structure.residueStore;
-  var residueMap= residueName.representation.parent.structure.residueMap.list;
-  residueStore.residueTypeId[]
-}
-*/
 //MINDMAP TESTING
 
+function findResPositionGivenResNameAndChangeVisibility(resName, self)
+{
+  var resPosition=[];
+  for(var i=0; i<self.residuesType.length; i++)
+  {
+      if(self.residuesType[i].name.toLowerCase()==resName.toLowerCase())
+      {
+        self.residuesType[i].visible=true;
+        break;
+      }
+  }
+  var resObjectArray=self.residuesType[i].residue;
+
+  for(var i=0; i<resObjectArray.length; i++)
+  {
+    resPosition.push(resObjectArray[i].position);
+    resObjectArray[i].visible=true
+  }
+  return resPosition;
+}
+
+function changeVisibilityGivenResPosition(resPos, self)
+{
+  var residueType=self.residuesType;
+  var residuePos;
+  for(var i=0; i<residueType.length; i++)
+  {
+      for(var j=0; j<residueType[i].residue.length; j++)
+      {
+        residuePos=residueType[i].residue[j].position;
+          if(residuePos==resPos)
+          {
+            residueType[i].visible=true;
+            residueType[i].residue[j].visible=true;
+          }
+      }
+  }
+}
 
 function setterGetterResiduesType(self)
 {
@@ -159,16 +206,16 @@ function setterGetterResiduesType(self)
     this._visible=val;
     if(val==true)
     {
-      for(i=0;i<this.residues.length;i++)
+      for(i=0;i<this.residue.length;i++)
       {
-          this.residues[i].parentVisible=true;
+          this.residue[i].parentVisible=true;
       }
     }
     else
     {
-      for(i=0;i<this.residues.length;i++)
+      for(i=0; i<this.residue.length;i++)
       {
-          this.residues[i].parentVisible=false;
+          this.residue[i].parentVisible=false;
       }
     }
 
@@ -219,7 +266,7 @@ set: function(val){
 },
 get: function()
 {
-    return this._visible;
+    return this.isVisible;
 }
 });
 

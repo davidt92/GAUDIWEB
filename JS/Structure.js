@@ -9,7 +9,7 @@ function Structure(struct)
   self.layers=[];
   self.residuesType=[];
   self.layersParentDiv;
-  this.BallStick;
+  self.BallStick;
   self.onCreate();
   self.onCreateSetterGetter();
   self.onCreateMindMap();
@@ -40,7 +40,6 @@ function layerObject(self, layerName)
   this.visibleDiv;
   this.layerDiv=createLayerRepresentation(this);
   setterGetterLayer(this);
-
   this._visibility=true;
 
   this.createSubLayer= function(repr)
@@ -88,9 +87,8 @@ function subLayerObject(self, repr)
   this.remove=function(){removeRepresentation(this)}; //No s'executa el primer cop
 
   this._visibility=true;
-  self._residuesName=[];
-  self._residuesPosition=[];
-  self._atomsName=[];
+  self._activeResiduesPosition=[];
+  self._activeAtomsPosition=[];
   setterGetterSublayer(this);
 }
 
