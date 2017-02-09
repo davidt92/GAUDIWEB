@@ -6,7 +6,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arsenal:700" rel="stylesheet">
@@ -16,7 +15,6 @@
     <!-- ZIP -->
     <script type="text/javascript" src="./JS/zip.js"></script>
     <script type="text/javascript" src="./JS/zip-fs.js"></script>
-    <!--<script type="text/javascript" src="./JS/zip-ext.js"></script>-->
     <script type="text/javascript" src="./JS/ZIP/dataview.js"></script>
     <script type="text/javascript" src="./JS/ZIP/config.js"></script>
 
@@ -35,15 +33,124 @@
     top: 54px;
     z-index: 2;
    }
-   body{
-   background-size: 50% auto;
- }
   </style>
 
   </head>
 
   <body>
-    <div style="background-image: url(./Images/test2.jpg); width:300px; height:300px"></div>
+      <!-- MENU -->
+      <ul id="menu" style="display: none">
+        <li><div>File</div>
+          <ul>
+            <li><div id="openMenu">Open</div></li>
+            <li><div id="openGaudiMenu">Open Gaudi</div></li>
+            <li><div id="screenShotMenu">Screenshot</div></li>
+            <li><div id="closeAll">Close All</div></li>
+          </ul>
+        </li>
+        <li><div>View</div>
+          <ul>
+            <li><div>Theme</div>
+              <ul>
+                <li><div id="lightThemeMenu">Light Theme</div></li>
+                <li><div id="darkThemeMenu">Dark theme</div></li>
+              </ul>
+            </li>
+            <li><div>Projection</div>
+              <ul>
+                <li><div id="prespectiveMenu">Prespective</div></li>
+                <li><div id="orthographicMenu">Orthographic</div></li>
+              </ul>
+            </li>
+            <li><div>Spin</div>
+              <ul>
+                <li><div id="spinOnMenu">Spin on</div></li>
+                <li><div id="spinOffMenu">Spin off</div></li>
+              </ul>
+            </li>
+            <li><div id="fullScreenMenu">Full Screen</div></li>
+          </ul>
+        </li>
+        <li><div id="settings">Settings</div></li>
+        <li><div>Documentation</div></li>
+      </ul>
 
+
+    <script type="text/javascript" src="./JS/ngl.dev.js"></script>
+    <div id="viewport" class="viewport">
+      <div class="menuButton" id="menuButton"><img src="./Images/logo_white.svg" style="width:45px"></div>
+      <div class="CMD">
+        <div class="HelpBox" id="HelpBox"></div>
+        <input type="textbox" name="CMDBOX" id="CMDBox" class="CMDBOX"></input>
+        <input type="button" name="CMDBUTTON" id="CMDBUTTON" class="CMDBUTTON" value="CMD"></input>
+      </div>
+    </div>
+    <div class="rightPanel right" style="background-image: url(./Images/test2.jpg); background-size: 100% auto;">
+        <div class="panelMenu"></div>
+        <div class="panelLayers" id="panelLayer"></div>
+    </div>
+    <!-- Mind Map DIV -->
+    <div class="mindMap transition" id="mindMap" >MIND MAP<div id="container"></div></div>
+    <!-- For the mindmap-->
+    <ul id="structure" style="display: none">
+      <li><div><span>GAUDIWEB</span></div></li>
+    </ul>
+
+    <!-- CMD -->
+    <script type="text/javascript" src="./JS/CMD.js"></script>
+    <script type="text/javascript" src="./JS/CMDFunctions.js"></script>
+
+    <!-- Structure -->
+    <script type="text/javascript" src="./JS/Structure.js"></script>
+    <script type="text/javascript" src="./JS/StructureMindMap.js"></script>
+    <script type="text/javascript" src="./JS/StructureRightPanel.js"></script>
+
+    <!-- Menu -->
+    <script type="text/javascript" src="./JS/menu.js"></script>
+
+    <!--MindMap-->
+    <script type="text/javascript" src="./JS/MindMap/buzzmap.js"></script>
+    <script type="text/javascript" src="./JS/MindMap/mindMap.js"></script>
+    <script type="text/javascript" src="./JS/MindMap/raphael.min.js"></script>
+
+    <!-- StructuratedInfo -->
+    <script type="text/javascript" src="./JS/structuratedInfo.js"></script>
+
+    <!-- Clicked on atoms -->
+    <script type="text/javascript" src="./JS/clickedAtoms.js"></script>
+
+    <!-- Setters and Getters -->
+    <script type="text/javascript" src="./JS/setterGetter.js"></script>
+
+    <!-- popUp's -->
+    <script type="text/javascript" src="./JS/popUp.js"></script>
+    <!-- Prototypes -->
+    <script type="text/javascript" src="./JS/StructurePrototype.js"></script>
+    <script type="text/javascript" src="./JS/ArrayStringPrototype.js"></script>
+
+    <!-- CREATE CANVAS -->
+    <script>
+      $(document).ready(function()
+      {
+        stage = new NGL.Stage( "viewport",{backgroundColor: "black"});
+        startOnCanvasClick(stage);
+        createStructuratedInfo(stage);
+      });
+      $("#mindMap").mouseover(function(){
+        $("#container").show();
+      });
+
+      $("#mindMap").mouseout(function(){
+          $("#container").hide();
+      });
+
+      $(document).ready(function(){
+          $('.ui-state-active').css("background","green");
+      });
+      //Automatic resize canvas
+      window.addEventListener("resize",function(){stage.handleResize()});
+      struct=[];
+      </script>
+    <script type="text/javascript" src="./JS/ZIP/gaudi.js"></script>
   </body>
 </html>

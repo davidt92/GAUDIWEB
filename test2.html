@@ -1,4 +1,3 @@
-<!-- https://github.com/arose/ngl/blob/master/doc/tutorials/snippets.md -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -114,6 +113,9 @@
     <script type="text/javascript" src="./JS/MindMap/mindMap.js"></script>
     <script type="text/javascript" src="./JS/MindMap/raphael.min.js"></script>
 
+    <!-- StructuratedInfo -->
+    <script type="text/javascript" src="./JS/structuratedInfo.js"></script>
+
     <!-- Clicked on atoms -->
     <script type="text/javascript" src="./JS/clickedAtoms.js"></script>
 
@@ -130,8 +132,24 @@
     <script>
       $(document).ready(function()
       {
-        stage = new NGL.Stage( "viewport",{backgroundColor: "black"});
+        var schemeId = NGL.ColormakerRegistry.addScheme( function( params ){
+            this.atomColor = function( atom ){
+                if( atom.serial < 1000 ){
+                    return 0x0000FF;  // blue
+                }else if( atom.serial > 2000 ){
+                    return 0xFF0000;  // red
+                }else{
+                    return 0x00FF00;  // green
+                }
+            };
+        } );
+
+        stage.loadFile( "rcsb://3dqb.pdb" ).then( function( o ){
+            o.addRepresentation( "cartoon", { color: schemeId } );  // pass schemeId here
+            o.centerView();
+        } );
         startOnCanvasClick(stage);
+        createStructuratedInfo(stage);
       });
       $("#mindMap").mouseover(function(){
         $("#container").show();
@@ -142,8 +160,6 @@
       });
 
       $(document).ready(function(){
-        //$(".ui-state-active:hover").css({"background":""});
-          //$(".ui-state-active").css({"background":""});
           $('.ui-state-active').css("background","green");
       });
       //Automatic resize canvas

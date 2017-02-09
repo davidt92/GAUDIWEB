@@ -5,7 +5,7 @@ loaded, it creates a new object called proteinaCarregada from the class Protein
 */
 function openPDB(stage, proteinName)
 {
-  stage.loadFile( "rcsb://"+proteinName+".mmtf", { defaultRepresentation: true } ).then(function(a){struct.push(new Structure(a))});
+  stage.loadFile( "rcsb://"+proteinName+".mmtf", { defaultRepresentation: true } ).then(function(a){ console.log(a);struct.push(new Structure(a))});
 }
 
 /* Function used to open File Chooser dialog that allows

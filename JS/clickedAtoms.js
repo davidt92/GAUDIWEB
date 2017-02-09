@@ -53,7 +53,6 @@ startOnCanvasClick=function(stage)
   atomArray;
   stage.signals.clicked.add(function(clickedInfo)
   {
-    console.log(clickedInfo);
     if(shiftPressed==true)
     {
       $("#HelpBox").html(getPickingMessage(clickedInfo).toString());
@@ -89,7 +88,7 @@ startOnCanvasClick=function(stage)
 
 /*
 * distance=sqrt((x-x_0)^2+(y-y_0)^2+(z-z_0)^2)
-*/
+*/ //SA de guardar la cadena :A o :B CLau atom.chainIndex
 function whatAtDistanceSmallerThanSelected(atom, distance)
 {
   var atomList=[];
@@ -112,12 +111,15 @@ function whatAtDistanceSmallerThanSelected(atom, distance)
   var distanceSquare=distance*distance;
   var d=0;
 
+  var resStore;
+
   //Check all atoms of all structure and find those with distance near than selected;
 
   for(var structure=0; structure<struct.length; structure++)
   {
       var atomArray=struct[structure].struct.structureView.atomStore;
-
+      console.log(atomArray);
+      resStore=struct[structure].struct.structure.residueStore.resno;
       /*Here we will compare each atom position in our structure with the position of the selected atom
       * If the distance between atoms is less than the ons selected I will record
       */
@@ -137,7 +139,7 @@ function whatAtDistanceSmallerThanSelected(atom, distance)
         if(d<distanceSquare)
         {
           atomList.push(serial);
-          resNumber=atomArray.residueIndex[pos]+1;
+          resNumber=resStore[atomArray.residueIndex[pos]];
           if(resList.contains(resNumber)==false) //residueIndex start at 0, but the first resiude will be 1
           {
             resList.push(resNumber);
@@ -153,6 +155,7 @@ function whatAtDistanceSmallerThanSelected(atom, distance)
       resList=[];
       addArray=[];
   }
+  console.log(ret);
   return ret;
 }
 
